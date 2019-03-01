@@ -1,5 +1,6 @@
 # Script to Download GFS data & process using QGIS
 # Began on Feb 18, 2019 - Chris Edwards, Jake Lewis, Hunter Williams
+# Jake was here a second time. Just to check.
 
 # TEST
 # TEST
@@ -28,12 +29,21 @@ os.mkdir(data_folder_path)
 # List of all desired file Id's
 file_id_list = ["006", "012", "018", "024"]
 
+
 # TEST
 # TEST
 # TEST
 # TEST
 # TEST
 # TEST
+
+
+ #Jake's Test
+ #Jake's Test
+ #Jake's Test
+ #Jake's Test
+ #Jake's Test
+ #Jake's Test
 
 
 # Loop to download and import rasters
