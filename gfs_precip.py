@@ -1,6 +1,6 @@
 # Script to Download GFS data & process using QGIS
 # Began on Feb 18, 2019 - Chris Edwards, Jake Lewis, Hunter Williams
-# Jake was here
+# Jake was here a second time. Just to check.
 
 print("Script Has Started!")
 
