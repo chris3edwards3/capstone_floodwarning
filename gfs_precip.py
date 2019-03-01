@@ -2,6 +2,13 @@
 # Began on Feb 18, 2019 - Chris Edwards, Jake Lewis, Hunter Williams
 # Jake was here a second time. Just to check.
 
+# TEST
+# TEST
+# TEST
+# TEST
+# TEST
+# TEST
+
 print("Script Has Started!")
 
 import os
@@ -22,13 +29,22 @@ os.mkdir(data_folder_path)
 # List of all desired file Id's
 file_id_list = ["006", "012", "018", "024"]
 
+
+# TEST
+# TEST
+# TEST
+# TEST
+# TEST
+# TEST
+
+
  #Jake's Test
  #Jake's Test
  #Jake's Test
  #Jake's Test
  #Jake's Test
  #Jake's Test
- 
+
 
 # Loop to download and import rasters
 for i in range(len(file_id_list)):
@@ -43,3 +59,12 @@ for i in range(len(file_id_list)):
     iface.addRasterLayer(data_file_path, "gfs_" + filename)
 
     print("File has downloaded and imported!")
+	
+	
+
+# TEST
+# TEST
+# TEST
+# TEST
+# TEST
+# TEST
