@@ -1,6 +1,13 @@
 # Script to Download GFS data & process using QGIS
 # Began on Feb 18, 2019 - Chris Edwards, Jake Lewis, Hunter Williams
 
+# TEST
+# TEST
+# TEST
+# TEST
+# TEST
+# TEST
+
 print("Script Has Started!")
 
 import os
@@ -21,6 +28,14 @@ os.mkdir(data_folder_path)
 # List of all desired file Id's
 file_id_list = ["006", "012", "018", "024"]
 
+# TEST
+# TEST
+# TEST
+# TEST
+# TEST
+# TEST
+
+
 # Loop to download and import rasters
 for i in range(len(file_id_list)):
     
@@ -34,3 +49,12 @@ for i in range(len(file_id_list)):
     iface.addRasterLayer(data_file_path, "gfs_" + filename)
 
     print("File has downloaded and imported!")
+	
+	
+
+# TEST
+# TEST
+# TEST
+# TEST
+# TEST
+# TEST
