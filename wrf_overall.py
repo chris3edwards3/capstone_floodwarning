@@ -1,7 +1,9 @@
 # Script to download WRF, import into QGIS,and process
 # © Feb 18, 2019 - Chris Edwards, Jake Lewis, Hunter Williams
 
-# Data Information:
+#**** You must save the QGIS Project before executing this script!***
+
+# WRF Data Information:
     # URL: https://www.nco.ncep.noaa.gov/pmb/products/hiresw/
     # Model: AWIPS 3.8km Puerto Rico ARW (NCAR Advanced Research WRF) 
     #      (The 2.5km doesn't include the DR) (filename says it's 5km)
@@ -29,8 +31,8 @@ input_datetime = str(now.strftime("%Y%m%d"))
 # Make a directory for raw data.
     # This directory will be created in the same directory where this script is saved.
     # If the directory already exists, it will be deleted along with all its contents.
-current_directory = os.getcwd()
-new_folder_path = current_directory + "/wrf_" + input_datetime
+project_directory = QgsProject.instance().homePath()
+new_folder_path = project_directory + "/wrf_" + input_datetime
 if os.path.exists(new_folder_path) == False:
     os.mkdir(new_folder_path)
 else:
@@ -98,7 +100,7 @@ calc = QgsRasterCalculator (grib_filename_48 + '@282 - ' + grib_filename_24 +'@2
 calc.processCalculation()
 
 # Save new raster as a QGIS Layer
-apcp_24to48 = QgsRasterLayer(tiff_path_24, tiff_filename_24)
+apcp_24to48 = QgsRasterLayer(tiff_path_48, tiff_filename_48)
 # Import the Raster into QGIS
 iface.addRasterLayer(tiff_path_48, tiff_filename_48)
 print(tiff_filename_48 + " has imported.")
@@ -106,7 +108,15 @@ print(tiff_filename_48 + " has imported.")
 
 # *** Zonal Statistics to average Precipitation 
 #           (Raster Calculator was done when importing correct band)
+shapefile_path = project_directory + "/ffgs_original/ffgs_original.shp"
+ffgs_shp = QgsVectorLayer(shapefile_path,'ffgs','ogr')
 
+zoneStat = QgsZonalStatistics (ffgs_shp, apcp_00to24, '0-24', 1, QgsZonalStatistics.Mean)
+zoneStat.calculateStatistics(None)
 
+zoneStat = QgsZonalStatistics (ffgs_shp, apcp_24to48, '24-48', 1, QgsZonalStatistics.Mean)
+zoneStat.calculateStatistics(None)
+
+iface.addVectorLayer(shapefile_path, "", 'ogr')
 
 print("Script has completed!")
