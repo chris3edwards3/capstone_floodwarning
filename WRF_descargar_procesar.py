@@ -111,7 +111,7 @@ print(tiff_filename_48 + " fue importado (was imported).")
 # *** Zonal Statistics to average Precipitation 
 #		(Raster Calculator was done when importing correct band)
 print("Ejecutando estadísticas de zona (Executing Zonal Statistics...)")
-shapefile_path = project_directory + "/ffgs_shapefile_no_editar/ffgs.shp"
+shapefile_path = project_directory + "/ffgs_wfr_shp/ffgs.shp"
 ffgs_shp = QgsVectorLayer(shapefile_path,'ffgs','ogr')
 
 zoneStat = QgsZonalStatistics (ffgs_shp, apcp_00to24, '00-24', 1, QgsZonalStatistics.Mean)
@@ -145,6 +145,6 @@ calculate_attributes()
 
 
 # *** Add Shapefile to the Map
-iface.addVectorLayer(shapefile_path, "_modificado", 'ogr')
+iface.addVectorLayer(shapefile_path, "modificado_", 'ogr')
 
 print("Proceso terminado con éxito (Process successfully finished).")
