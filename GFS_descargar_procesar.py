@@ -219,10 +219,7 @@ calculate_attributes()
 
 
 # *** Add Shapefile to the Map
-<<<<<<< HEAD
 iface.addVectorLayer(shapefile_path, "modificado", 'ogr')
-=======
-iface.addVectorLayer(shapefile_path, "modificado_", 'ogr')
->>>>>>> 07e5a185d5a70e1b96de185ae15c2fab34e8e27f
+
 
 print("Proceso terminado con éxito (Process successfully finished).")
