@@ -174,7 +174,7 @@ print("Raster Calculator complete, next step = Zonal Statistics")
 
 
 #specify polygon shapefile ADJUST PATH TO WORK ON ANY MACHINE
-shapefile_path = current_directory + "/ffgs_gfs_shape/ffgs.shp"	  #edit path to match location of shapefile on user's device
+shapefile_path = current_directory + "/ffgs_gfs_shp/ffgs.shp"	  #edit path to match location of shapefile on user's device
 ffgs_shp = QgsVectorLayer(shapefile_path,'FFGS','ogr')		#Stores the shapefile layer as a variable
 
 gfs_00to24 = QgsRasterLayer(daily_total_0_24,"Hours 0-24 Accumulation")
@@ -219,6 +219,6 @@ calculate_attributes()
 
 
 # *** Add Shapefile to the Map
-iface.addVectorLayer(shapefile_path, "_modificado", 'ogr')
+iface.addVectorLayer(shapefile_path, "modificado_", 'ogr')
 
 print("Proceso terminado con éxito (Process successfully finished).")
