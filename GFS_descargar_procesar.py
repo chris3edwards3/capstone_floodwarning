@@ -64,7 +64,7 @@ for i in range(len(file_id_list)):
     urllib.request.urlretrieve(data_url, data_file_path)
 
     # Import the Raster into QGIS
-    iface.addRasterLayer(data_file_path, filename)
+    # iface.addRasterLayer(data_file_path, filename)
 
     print(filename + " has downloaded and imported.")
     
@@ -110,14 +110,14 @@ entries = [ H00_06 , H06_12 , H12_18 , H18_24 ]
 
 # *** Run raster calculator for Hours 00-24
 
-daily_total_0_24 = data_folder_path + "/gfs_apcp_" + input_datetime + "Hrs00_24_daily_total.tif" 
+daily_total_0_24 = data_folder_path + "/gfs_apcp_" + input_datetime + "Hrs00_24.tif" 
 calc_00_24 = QgsRasterCalculator ( '00_06@1 + 06_12@1 + 12_18@1 + 18_24@1', daily_total_0_24 , 'GTiff', Hrs00_06.extent(), Hrs00_06.width(), Hrs00_06.height(), entries )
 print("new file path made")
 calc_00_24.processCalculation()
 
 print("Hours 0-24 calculator was successful")
 
-iface.addRasterLayer (daily_total_0_24, "Hours 0-24 Accumulation")
+iface.addRasterLayer (daily_total_0_24, "GFS-" + input_datetime + "_Hr_00-24")
 
 # *** Setup raster layer variables for hours 24-48 for use in raster calculator
 
@@ -159,14 +159,14 @@ entries = [ H24_30 , H30_36 , H36_42 , H42_48 ]
 
 # *** Run raster calculator for hours 24-48
 
-daily_total_24_48 = data_folder_path + "/gfs_apcp_" + input_datetime + "_Hrs24_48_daily_total.tif" 
+daily_total_24_48 = data_folder_path + "/gfs_apcp_" + input_datetime + "_Hrs24_48.tif" 
 calc_24_48 = QgsRasterCalculator ( '24_30@1 + 30_36@1 + 36_42@1 + 42_48@1', daily_total_24_48 , 'GTiff', Hrs24_30.extent(), Hrs24_30.width(), Hrs24_30.height(), entries )
 print("new file path made")
 calc_24_48.processCalculation()
 
 print("Hours 24-48 calculator was successful")
 
-iface.addRasterLayer (daily_total_24_48, "Hours 24-48 Accumulation")
+iface.addRasterLayer (daily_total_24_48, "GFS-" + input_datetime + "_Hr_24-48")
 
 print("Raster Calculator complete, next step = Zonal Statistics")
 
@@ -177,7 +177,7 @@ print("Raster Calculator complete, next step = Zonal Statistics")
 shapefile_path = current_directory + "/ffgs_gfs_shp/ffgs.shp"	  #edit path to match location of shapefile on user's device
 ffgs_shp = QgsVectorLayer(shapefile_path,'FFGS','ogr')		#Stores the shapefile layer as a variable
 
-gfs_00to24 = QgsRasterLayer(daily_total_0_24,"Hours 0-24 Accumulation")
+gfs_00to24 = QgsRasterLayer(daily_total_0_24,"GFS-" + input_datetime + "_Hr_00-24")
 
 # usage - QgsZonalStatistics (QgsVectorLayer: polygonLayer, rasterLayer: QgsRasterLayer,, const QString attributePrefix="desired_prefix", int rasterBand=1)
 #Overlay the raster on to the shapefile and find the mean precip forecast for each basin. Adds attribute table to shapefile with precip values
@@ -186,7 +186,7 @@ zoneStat.calculateStatistics(None)
 
 print('0-24 hour mean was created')
 
-gfs_24to48 = QgsRasterLayer(daily_total_24_48,"Hours 24-48 Accumulation")
+gfs_24to48 = QgsRasterLayer(daily_total_24_48,"GFS-" + input_datetime + "_Hr_24-48")
 
 zoneStat = QgsZonalStatistics (ffgs_shp, gfs_24to48, '24-48', 1, QgsZonalStatistics.Mean)
 zoneStat.calculateStatistics(None)
@@ -219,7 +219,7 @@ calculate_attributes()
 
 
 # *** Add Shapefile to the Map
-iface.addVectorLayer(shapefile_path, "modificado", 'ogr')
+iface.addVectorLayer(shapefile_path, "GFS-modificado", 'ogr')
 
 
 print("Proceso terminado con éxito (Process successfully finished).")

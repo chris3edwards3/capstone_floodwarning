@@ -60,7 +60,7 @@ target_24.ref = grib_filename_24 + '@282'
     # List of Calculator Entries
 entries = [target_24]
     # 24-hr APCP accumulation Tiff File name and path
-tiff_filename_24 = "wrf_apcp_" + input_datetime +"_0-24.tif"
+tiff_filename_24 = "WRF-" + input_datetime + "_Hr_00-24"
 tiff_path_24 = new_folder_path + "/" + tiff_filename_24
 
 # Raster Calculator. Simply extracting band 282
@@ -92,7 +92,7 @@ target_48.ref = grib_filename_48 + '@282'
     # List of Calculator Entries
 entries = [target_24, target_48]
     # 48-hr APCP accumulation Tiff File name and path
-tiff_filename_48 = "wrf_apcp_" + input_datetime +"_24-48.tif"
+tiff_filename_48 = "WRF-" + input_datetime + "_Hr_24-48"
 tiff_path_48 = new_folder_path + "/" + tiff_filename_48
 
 
@@ -145,6 +145,6 @@ calculate_attributes()
 
 
 # *** Add Shapefile to the Map
-iface.addVectorLayer(shapefile_path, "modificado", 'ogr')
+iface.addVectorLayer(shapefile_path, "WRF-modificado", 'ogr')
 
 print("Proceso terminado con éxito (Process successfully finished).")
