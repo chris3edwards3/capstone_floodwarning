@@ -59,7 +59,7 @@ file_id_list = ["006", "012", "018", "024", "030", "036", "042", "048"]
 # Loop to download and import rasters from the NOMADS database, GFS 0.25 Degree
 for i in range(len(file_id_list)):
     # Download the file to the new raw-data directory
-    data_url = "https://nomads.ncep.noaa.gov/cgi-bin/filter_gfs_0p25.pl?file=gfs.t00z.pgrb2.0p25.f" + file_id_list[i] + "&all_lev=on&var_APCP=on&subregion=&leftlon=282&rightlon=295&toplat=24&bottomlat=16&dir=%2Fgfs." + input_datetime
+    data_url = "https://nomads.ncep.noaa.gov/cgi-bin/filter_gfs_0p25.pl?file=gfs.t00z.pgrb2.0p25.f" + file_id_list[i] + "&all_lev=on&var_APCP=on&subregion=&leftlon=282&rightlon=299&toplat=24&bottomlat=13.5&dir=%2Fgfs." + input_datetime
     filename = "gfs_apcp_" + input_datetime +"_f" + file_id_list[i] + ".grb"
     data_file_path = data_folder_path + "/" + filename
     urllib.request.urlretrieve(data_url, data_file_path)
