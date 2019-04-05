@@ -1,6 +1,7 @@
 # **** Es nececario guardar el Proyecto de QGIS antes de ejecutar el script! ****
 # **** You must save the QGIS Project before executing this script! ****
 
+# Script para descargar el GFS), importarlo en QGIS, y procesar
 # Script to download GFS data, load into QGIS, and process
 # © Feb 18, 2019 - Chris Edwards, Jake Lewis, Hunter Williams
 
@@ -14,7 +15,7 @@
     # The variable APCP (Total Precipitation) has units of kg/m^2
 
 
-print("Script Has Started!")
+print("El proceso ha comenzado (Script Has Started).")
 
 import os
 import shutil
@@ -66,9 +67,9 @@ for i in range(len(file_id_list)):
     # Import the Raster into QGIS
     # iface.addRasterLayer(data_file_path, filename)
 
-    print(filename + " has downloaded and imported.")
+    print(filename + " fue descargado (was downloaded).")
     
-print("All files have downloaded - next step = Raster Calculator")
+
 
 # *** Setup raster layer variables for hours 00-24 for use in raster calculator
 
@@ -84,7 +85,7 @@ Hrs12_18 = QgsRasterLayer(Hours_12_18,"Hours 12 to 18")
 Hours_18_24 = data_folder_path + "/gfs_apcp_" + input_datetime + "_f024.grb"
 Hrs18_24 = QgsRasterLayer(Hours_18_24,"Hours 18 to 24")
 
-print("Hours 0-24 raster variables created")
+# Raster Calculator Preparation
 
 H00_06 = QgsRasterCalculatorEntry()
 H00_06.raster = Hrs00_06
@@ -112,10 +113,10 @@ entries = [ H00_06 , H06_12 , H12_18 , H18_24 ]
 
 daily_total_0_24 = data_folder_path + "/gfs_apcp_" + input_datetime + "Hrs00_24.tif" 
 calc_00_24 = QgsRasterCalculator ( '00_06@1 + 06_12@1 + 12_18@1 + 18_24@1', daily_total_0_24 , 'GTiff', Hrs00_06.extent(), Hrs00_06.width(), Hrs00_06.height(), entries )
-print("new file path made")
+#print("new file path made")
 calc_00_24.processCalculation()
 
-print("Hours 0-24 calculator was successful")
+print("Raster de las horas 0-24 fue creado.")
 
 iface.addRasterLayer (daily_total_0_24, "GFS-" + input_datetime + "_Hr_00-24")
 
@@ -133,7 +134,7 @@ Hrs36_42 = QgsRasterLayer(Hours_36_42,"Hours 36 to 42")
 Hours_42_48 = data_folder_path + "/gfs_apcp_" + input_datetime + "_f048.grb"
 Hrs42_48 = QgsRasterLayer(Hours_42_48,"Hours 42 to 48")
 
-print("Hours 24-48 raster variables created")
+# Raster Calculator Preparation
 
 H24_30 = QgsRasterCalculatorEntry()
 H24_30.raster = Hrs24_30
@@ -161,14 +162,14 @@ entries = [ H24_30 , H30_36 , H36_42 , H42_48 ]
 
 daily_total_24_48 = data_folder_path + "/gfs_apcp_" + input_datetime + "_Hrs24_48.tif" 
 calc_24_48 = QgsRasterCalculator ( '24_30@1 + 30_36@1 + 36_42@1 + 42_48@1', daily_total_24_48 , 'GTiff', Hrs24_30.extent(), Hrs24_30.width(), Hrs24_30.height(), entries )
-print("new file path made")
+#print("new file path made")
 calc_24_48.processCalculation()
 
-print("Hours 24-48 calculator was successful")
+print("Raster de las horas 24-48 fue creado.")
 
 iface.addRasterLayer (daily_total_24_48, "GFS-" + input_datetime + "_Hr_24-48")
 
-print("Raster Calculator complete, next step = Zonal Statistics")
+print("Empezando estadisticas de zona (Starting Zonal Statistics)...")
 
 # *** Zonal Statistics to average Precipitation 
 
@@ -184,16 +185,15 @@ gfs_00to24 = QgsRasterLayer(daily_total_0_24,"GFS-" + input_datetime + "_Hr_00-2
 zoneStat = QgsZonalStatistics (ffgs_shp, gfs_00to24, '00-24', 1, QgsZonalStatistics.Mean)
 zoneStat.calculateStatistics(None)
 
-print('0-24 hour mean was created')
+#print('0-24 hour mean was created')
 
 gfs_24to48 = QgsRasterLayer(daily_total_24_48,"GFS-" + input_datetime + "_Hr_24-48")
 
 zoneStat = QgsZonalStatistics (ffgs_shp, gfs_24to48, '24-48', 1, QgsZonalStatistics.Mean)
 zoneStat.calculateStatistics(None)
-#           (Raster Calculator was done when importing correct band)
 
-print('24-48 hour mean was created')
-
+#print('24-48 hour mean was created')
+print("Estadisticas de zona ha cumplido (Zonal Statistics finished).")
 
 # *** Add new fields to the shapefile. Example: "Ind_00-24" = Potential to flood, 0-24 hours.
 print("Añadiendo Campo (Adding Field...)")
