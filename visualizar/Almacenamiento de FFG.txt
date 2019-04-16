@@ -1,0 +1,8 @@
+# Archivo de exportación de mapa de colores generado por QGIS
+INTERPOLATION:INTERPOLATED
+-1,102,102,102,255,NO FFGS
+0,249,249,249,255,0 mm
+50,0,21,255,64,50 mm
+100,1,22,255,128,100 mm
+150,0,21,255,191,150 mm
+200,0,21,254,255,200 mm

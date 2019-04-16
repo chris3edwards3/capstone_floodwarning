@@ -1,0 +1,11 @@
+# Archivo de exportación de mapa de colores generado por QGIS
+INTERPOLATION:INTERPOLATED
+-10000,0,0,0,128,No FFGS
+-10000,227,26,28,255,Inundación
+-21,227,26,28,255,20+ mm pasado el límite
+-20,255,127,0,255,Posibilidad de inundación
+-1e-05,255,127,0,255,0-20 mm pasado el límite
+0,255,255,0,255,Cerca a inundación
+20,255,255,0,255,0-20 mm debajo el límite
+20,51,160,44,128,Poco Lluvia
+200,51,160,44,127,20+ mm debajo el límite

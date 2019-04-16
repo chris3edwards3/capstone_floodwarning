@@ -1,0 +1,7 @@
+# Archivo de exportación de mapa de colores generado por QGIS
+INTERPOLATION:INTERPOLATED
+-10000,0,0,0,128,No FFGS
+-10000,227,26,28,255,Inundación
+-1e-05,227,26,28,255,< 0
+0,51,160,44,128,> 0
+200,51,160,44,127,No inundación

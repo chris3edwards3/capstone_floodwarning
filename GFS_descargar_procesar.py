@@ -29,7 +29,7 @@ from PyQt5.QtCore import QVariant
 # Identify today's date, and format it like YYMMDD00
 # We use the most recent 00 forecast, or the forecast generated at midnight last night. 
 now = datetime.datetime.now()
-input_datetime = str(now.strftime("%Y%m%d")) + "00"
+input_datetime = str(now.strftime("%Y%m%d")) + "06"
 
 # Make a directory for raw data.
     # This directory will be created in the same directory where this script is saved.
